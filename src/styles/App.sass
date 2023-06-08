@@ -53,6 +53,32 @@ a
     width: 360px
     // height: 300px
 
+.input
+    // width: 100%
+    padding: 0.5rem 1rem
+    border: 1px solid #7C5EB7
+    border-radius: 10px
+    background: rgb(124,94,183)
+    background: linear-gradient(307deg, rgba(124,94,183,1) 0%, rgba(3,0,20,1) 100%)
+    display: flex
+    align-items: center
+    justify-content: space-between
+    input
+        // width: 100%
+        outline: none
+        border: none
+        background: transparent
+        color: #fff
+        font-weight: 600
+        font-family: 'Poppins', sans-serif
+        font-size: 1rem
+        &::placeholder
+            color: #fff
+            font-weight: 600
+    &:hover
+        outline: none
+        box-shadow: 0 0 5px #7C5EB7
+
 @media screen and (max-width: 786px)
     .anime
         width: 80%
