@@ -39,7 +39,7 @@ const Footer = () => {
                     {/* <Link to='/signup' className="nav-btn">Sign Up</Link> */}
                     <a
                         className="nav-btn"
-                        href="http://"
+                        href="https://github.com/prajeshElEvEn/taskerrr"
                         target="_blank"
                         rel="noopener noreferrer">
                         Github
