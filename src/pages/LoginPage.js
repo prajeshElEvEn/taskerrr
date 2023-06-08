@@ -1,7 +1,10 @@
 import { Box, Container, TextField } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 
 const LoginPage = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
     return (
         <Container
             sx={{
@@ -41,7 +44,9 @@ const LoginPage = () => {
                         width: '100%',
                     }}
                     type='email'
-                    id="outlined-basic"
+                    // id="outlined-basic"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     label="Email Id"
                     variant="outlined"
                     color="tertiary"
@@ -52,7 +57,9 @@ const LoginPage = () => {
                         width: '100%',
                     }}
                     type='password'
-                    id="outlined-basic"
+                    // id="outlined-basic"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     label="Password"
                     variant="outlined"
                     color="tertiary"
