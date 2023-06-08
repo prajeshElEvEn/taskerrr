@@ -1,0 +1,50 @@
+.brand-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: #DFDFE2;
+  font-weight: 600;
+}
+
+.nav-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #7C5EB7;
+  border-radius: 10px;
+  background: rgb(124, 94, 183);
+  background: linear-gradient(307deg, rgb(124, 94, 183) 0%, rgb(3, 0, 20) 100%);
+}
+
+.sub-title {
+  border: 1px solid #7C5EB7;
+  padding: 0.2rem 1rem;
+  border-radius: 50px;
+  background: rgb(124, 94, 183);
+  background: linear-gradient(307deg, rgb(124, 94, 183) 0%, rgb(3, 0, 20) 100%);
+}
+
+.header {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.description {
+  color: #ADA8BF;
+  font-size: 1.2rem;
+}
+
+.title {
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.desc {
+  color: #ADA8BF;
+}
+
+.feature:hover {
+  background: rgb(15, 8, 52);
+  background: linear-gradient(0deg, rgb(15, 8, 52) 0%, rgb(3, 0, 20) 100%);
+}/*# sourceMappingURL=App.css.map */
