@@ -70,13 +70,14 @@ const Footer = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
+                    flexWrap: 'wrap',
                 }}
             >
                 <div className="left">
                     &copy; {new Date().getFullYear()} Taskerrr
                 </div>
                 <div className="right">
-                    Made with ❤️ by <a href="http://bit.ly/prajesheleven" target="_blank" rel="noopener noreferrer">ElEvEnCo.</a>
+                    Made with ❤️ by <a href="http://bit.ly/prajesheleven" target="_blank" rel="noopener noreferrer">ElEvEn Co.</a>
                 </div>
             </Box>
         </Container>
