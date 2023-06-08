@@ -9,7 +9,7 @@ const Navbar = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             py: '1rem',
-            // borderBottom: '1px solid #E4E4E6',
+            borderBottom: '1px solid #221935',
         }}>
             <Box>
                 {/* <img src="" alt="" /> */}

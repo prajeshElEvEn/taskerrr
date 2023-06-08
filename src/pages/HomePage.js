@@ -4,6 +4,7 @@ import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
+import { Player } from '@lottiefiles/react-lottie-player';
 
 const HomePage = () => {
     return (
@@ -16,7 +17,7 @@ const HomePage = () => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    // justifyContent: 'center',
+                    justifyContent: 'center',
                     alignItems: 'center',
                     gap: '0.5rem',
                     py: '5rem',
@@ -109,6 +110,134 @@ const HomePage = () => {
                         Get notified when a task is assigned to you
                     </div>
                 </Box>
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    // justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    py: '5rem',
+                }}
+            >
+                {/* <img
+                    className="image"
+                    src={InfoImage}
+                    alt=""
+                /> */}
+                <Player
+                    className="anime"
+                    autoplay
+                    loop
+                    src="https://assets5.lottiefiles.com/packages/lf20_y9wnxr3h.json"
+                // style={{ height: '300px', width: '300px' }}
+                />
+                <div className="sub-title">
+                    Accessing made easy
+                </div>
+                <div className="sub-header">
+                    Never loose information
+                </div>
+                <div className="description">
+                    All your tasks are stored in the cloud. Access them from anywhere, anytime.
+                </div>
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    // justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    py: '5rem',
+                }}
+            >
+                {/* <img
+                    className="image"
+                    src={CollabImage}
+                    alt=""
+                /> */}
+                <Player
+                    className="anime"
+                    autoplay
+                    loop
+                    src="https://assets1.lottiefiles.com/packages/lf20_5J8eTHBXqO.json"
+                // style={{ height: '300px', width: '300px' }}
+                />
+                <div className="sub-title">
+                    Productivity++
+                </div>
+                <div className="sub-header">
+                    Make more out of your tasks
+                </div>
+                <div className="description">
+                    Collaborate and assign tasks to other users. Get notified when a task is assigned to you.
+                </div>
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    // justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    py: '5rem',
+                }}
+            >
+                {/* <img
+                    className="image"
+                    src={SecurityImage}
+                    alt=""
+                /> */}
+                <Player
+                    className="anime"
+                    autoplay
+                    loop
+                    src="https://assets3.lottiefiles.com/packages/lf20_M1fcEcu4xd.json"
+                // style={{ height: '300px', width: '300px' }}
+                />
+                <div className="sub-title">
+                    Encrypltion
+                </div>
+                <div className="sub-header">
+                    Hardened security
+                </div>
+                <div className="description">
+                    Your data is safe with us. We use end-to-end encryption to ensure that only you can access your tasks.
+                </div>
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    // justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    py: '5rem',
+                }}
+            >
+                {/* <img
+                    className="image"
+                    src={SecurityImage}
+                    alt=""
+                /> */}
+                <Player
+                    className="anime"
+                    autoplay
+                    loop
+                    src="https://assets5.lottiefiles.com/packages/lf20_lbHpNV.json"
+                    style={{ width: '100%' }}
+                />
+                <div className="sub-title">
+                    About
+                </div>
+                <div className="sub-header">
+                    We're a India based Team
+                </div>
+                <div className="description">
+                    Our mission is to increase people's productivity by helping them accomplish their tasks better.
+                </div>
             </Box>
         </Container>
     )

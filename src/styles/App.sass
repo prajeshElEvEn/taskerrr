@@ -26,6 +26,11 @@ a
 .header
     font-size: 4rem
     font-weight: 600
+    text-align: center
+.sub-header
+    font-size: 2rem
+    font-weight: 600
+    text-align: center
 .description
     color: #ADA8BF
     font-size: 1.2rem
@@ -39,3 +44,16 @@ a
     &:hover
         background: rgb(15,8,52)
         background: linear-gradient(0deg, rgba(15,8,52,1) 0%, rgba(3,0,20,1) 100%)
+.image
+    width: 480px
+    // height: 100%
+    object-fit: cover
+
+.anime
+    width: 360px
+    // height: 300px
+
+@media screen and (max-width: 786px)
+    .anime
+        width: 80%
+        height: auto
