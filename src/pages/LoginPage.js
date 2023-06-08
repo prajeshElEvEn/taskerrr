@@ -5,6 +5,10 @@ const LoginPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const handleLogin = () => {
+
+    }
+
     return (
         <Container
             sx={{
@@ -64,7 +68,10 @@ const LoginPage = () => {
                     variant="outlined"
                     color="tertiary"
                 />
-                <div className="btn">
+                <div
+                    className="btn"
+                    onClick={handleLogin}
+                >
                     Login
                 </div>
             </Box>
