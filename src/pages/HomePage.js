@@ -5,7 +5,7 @@ const HomePage = () => {
     return (
         <Container
             sx={{
-                bgcolor: 'primary.main',
+                // bgcolor: 'primary.main',
             }}
         >
             Home
