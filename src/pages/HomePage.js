@@ -47,9 +47,13 @@ const HomePage = () => {
                         className="feature"
                         sx={{
                             py: '2rem',
-                            px: '1rem',
-                            borderLeft: '1px solid #221935',
-                            borderRight: '1px solid #221935',
+                            px: { xs: '0', md: '1rem' },
+                            borderLeft: {
+                                xs: 'none', md: '1px solid #221935'
+                            },
+                            borderRight: { xs: 'none', md: '1px solid #221935' },
+                            borderBottom: { xs: '1px solid #221935', md: 'none' },
+                            borderTop: { xs: '1px solid #221935', md: 'none' },
                             width: { xs: '100%', md: '24%' },
                         }}
                     >
@@ -65,8 +69,10 @@ const HomePage = () => {
                         className="feature"
                         sx={{
                             py: '2rem',
-                            px: '1rem',
-                            borderRight: '1px solid #221935',
+                            px: { xs: '0', md: '1rem' },
+                            borderRight: { xs: 'none', md: '1px solid #221935' },
+                            borderBottom: { xs: '1px solid #221935', md: 'none' },
+                            borderTop: { xs: '1px solid #221935', md: 'none' },
                             width: { xs: '100%', md: '24%' },
                         }}
                     >
@@ -82,8 +88,10 @@ const HomePage = () => {
                         className="feature"
                         sx={{
                             py: '2rem',
-                            px: '1rem',
-                            borderRight: '1px solid #221935',
+                            px: { xs: '0', md: '1rem' },
+                            borderRight: { xs: 'none', md: '1px solid #221935' },
+                            borderBottom: { xs: '1px solid #221935', md: 'none' },
+                            borderTop: { xs: '1px solid #221935', md: 'none' },
                             width: { xs: '100%', md: '24%' },
                         }}
                     >
@@ -99,8 +107,10 @@ const HomePage = () => {
                         className="feature"
                         sx={{
                             py: '2rem',
-                            px: '1rem',
-                            borderRight: '1px solid #221935',
+                            px: { xs: '0', md: '1rem' },
+                            borderRight: { xs: 'none', md: '1px solid #221935' },
+                            borderBottom: { xs: '1px solid #221935', md: 'none' },
+                            borderTop: { xs: '1px solid #221935', md: 'none' },
                             width: { xs: '100%', md: '24%' },
                         }}
                     >
