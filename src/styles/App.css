@@ -15,6 +15,9 @@ a {
   border-radius: 10px;
   background: rgb(124, 94, 183);
   background: linear-gradient(307deg, rgb(124, 94, 183) 0%, rgb(3, 0, 20) 100%);
+  color: #DFDFE2;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .btn {

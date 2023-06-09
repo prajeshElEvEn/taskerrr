@@ -2,16 +2,29 @@ import { Box, Button, Container, Menu, MenuItem } from '@mui/material'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import { useDispatch } from 'react-redux';
+import { logout } from '../features/user/userSlice';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase/config';
 
 const Navbar = ({ user }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const dispatch = useDispatch()
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
+    const handleLogout = () => {
+        dispatch(logout())
+        signOut(auth)
+    }
+
     return (
         <Container sx={{
             display: 'flex',
@@ -65,8 +78,13 @@ const Navbar = ({ user }) => {
                                     Notification 1
                                 </MenuItem>
                             </Menu>
-                            <Link to='/login' className="nav-btn-login">Dasboard</Link>
-                            <Link to='/signup' className="nav-btn">Logout</Link>
+                            <Link to='/dashboard' className="nav-btn-login">Dasboard</Link>
+                            <div
+                                className="nav-btn"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </div>
                         </>
                     ) : (
                         <>

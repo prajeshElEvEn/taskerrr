@@ -62,10 +62,7 @@ const SignupPage = () => {
             <Box
                 sx={{
                     bgcolor: '#DFDFE2',
-                    // bgcolor: '#7C5EB7',
                     p: '1rem',
-                    // py: '2rem',
-                    // px: { xs: '0', md: '2rem' },
                     borderRadius: '10px',
                     width: { xs: '100%', md: 'auto' },
                     display: 'flex',
