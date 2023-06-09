@@ -1,9 +1,12 @@
-import { Box, Button, Container, Menu, MenuItem, TextField } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, Container, Menu, MenuItem, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
+import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined'
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const Dashboard = () => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [value, setValue] = useState('due')
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
@@ -13,10 +16,12 @@ const Dashboard = () => {
         setAnchorEl(null);
     };
     const handleDue = () => {
-        setAnchorEl(null);
+        setAnchorEl(null)
+        setValue('due')
     };
     const handleCompleted = () => {
-        setAnchorEl(null);
+        setAnchorEl(null)
+        setValue('completed')
     };
     return (
         <Container>
@@ -162,6 +167,155 @@ const Dashboard = () => {
                             </MenuItem>
                         </Menu>
                     </div>
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        // justifyContent: 'space-between',
+                        width: '100%',
+                        flexWrap: 'wrap',
+                        gap: '1rem',
+                        py: '2rem',
+                    }}
+                >
+                    {
+                        value === 'due' && (
+                            <>
+                                <Card
+                                    sx={{
+                                        maxWidth: { xs: '100%', md: 345 },
+                                    }}
+                                >
+                                    <CardContent
+                                        sx={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'flex-start',
+                                            gap: '0.5rem',
+                                        }}
+                                    >
+                                        <div className="card-title">
+                                            Lizard
+                                        </div>
+                                        <div className='card-desc'>
+                                            Lizards are a widespread group of squamate reptiles, with over 6,000
+                                            species, ranging across all continents except Antarctica
+                                        </div>
+                                        <div className="date">
+                                            Due Date: <span>
+                                                12/12/2021
+                                            </span>
+                                        </div>
+                                    </CardContent>
+                                    <CardActions
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            width: '90%',
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                gap: '0.5rem',
+                                            }}
+                                        >
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                color="tertiary"
+                                            >
+                                                <ModeEditOutlineOutlinedIcon />
+                                            </Button>
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                color="tertiary"
+                                            >
+                                                <DeleteOutlineOutlinedIcon />
+                                            </Button>
+                                        </Box>
+                                        <Button
+                                            size="small"
+                                            variant="outlined"
+                                            color="tertiary"
+                                        >
+                                            Assign
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </>
+                        )
+                    }
+                    {
+                        value === 'completed' && (
+                            <>
+                                <Card
+                                    sx={{
+                                        maxWidth: { xs: '100%', md: 345 },
+                                    }}
+                                >
+                                    <CardContent
+                                        sx={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'flex-start',
+                                            gap: '0.5rem',
+                                        }}
+                                    >
+                                        <div className="card-title">
+                                            Lizard
+                                        </div>
+                                        <div className='card-desc'>
+                                            Lizards are a widespread group of squamate reptiles, with over 6,000
+                                            species, ranging across all continents except Antarctica
+                                        </div>
+                                        <div className="date">
+                                            Due Date: <span>
+                                                12/12/2021
+                                            </span>
+                                        </div>
+                                    </CardContent>
+                                    <CardActions
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            width: '90%',
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                gap: '0.5rem',
+                                            }}
+                                        >
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                color="tertiary"
+                                            >
+                                                <ModeEditOutlineOutlinedIcon />
+                                            </Button>
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                color="tertiary"
+                                            >
+                                                <DeleteOutlineOutlinedIcon />
+                                            </Button>
+                                        </Box>
+                                        <Button
+                                            size="small"
+                                            variant="outlined"
+                                            color="tertiary"
+                                        >
+                                            Assign
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </>
+                        )
+                    }
                 </Box>
             </Box>
         </Container>
