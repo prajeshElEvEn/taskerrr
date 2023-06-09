@@ -1,10 +1,10 @@
-import { Box, Button, Card, CardActions, CardContent, Container, Menu, MenuItem, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import { Alert, Box, Button, Card, CardActions, CardContent, Container, Menu, MenuItem, TextField } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined'
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
 const Dashboard = ({ user }) => {
@@ -14,6 +14,8 @@ const Dashboard = ({ user }) => {
     const [description, setDescription] = useState('')
     const [dueDate, setDueDate] = useState('')
     const [tasks, setTasks] = useState([])
+    const [completedTasks, setCompletedTasks] = useState([])
+    const [dueTasks, setDueTasks] = useState([])
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
@@ -50,6 +52,27 @@ const Dashboard = ({ user }) => {
         setDescription('')
         setDueDate('')
     }
+
+    useEffect(() => {
+        const taskRef = collection(db, 'tasks')
+        const taskQuery = query(taskRef, orderBy('timestamp', 'desc'))
+        onSnapshot(taskQuery, (snapshot) => {
+            setTasks(snapshot.docs.map((doc) => ({
+                id: doc.id,
+                data: doc.data(),
+            })))
+            setCompletedTasks(snapshot.docs.filter((doc) => doc.data().completed === true).map((doc) => ({
+                id: doc.id,
+                data: doc.data(),
+            })))
+            setDueTasks(snapshot.docs.filter((doc) => doc.data().completed === false).map((doc) => ({
+                id: doc.id,
+                data: doc.data(),
+            })))
+        })
+
+    }, [])
+
 
     return (
         <Container>
@@ -209,138 +232,206 @@ const Dashboard = ({ user }) => {
                     {
                         value === 'due' && (
                             <>
-                                <Card
-                                    sx={{
-                                        maxWidth: { xs: '100%', md: 345 },
-                                    }}
-                                >
-                                    <CardContent
-                                        sx={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            alignItems: 'flex-start',
-                                            gap: '0.5rem',
-                                        }}
-                                    >
-                                        <div className="card-title">
-                                            Lizard
-                                        </div>
-                                        <div className='card-desc'>
-                                            Lizards are a widespread group of squamate reptiles, with over 6,000
-                                            species, ranging across all continents except Antarctica
-                                        </div>
-                                        <div className="date">
-                                            Due Date: <span>
-                                                12/12/2021
-                                            </span>
-                                        </div>
-                                    </CardContent>
-                                    <CardActions
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            width: '90%',
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                gap: '0.5rem',
-                                            }}
-                                        >
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                color="tertiary"
-                                            >
-                                                <ModeEditOutlineOutlinedIcon />
-                                            </Button>
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                color="tertiary"
-                                            >
-                                                <DeleteOutlineOutlinedIcon />
-                                            </Button>
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                color="tertiary"
-                                            >
-                                                <DoneOutlinedIcon />
-                                            </Button>
-                                        </Box>
-                                        <Button
-                                            size="small"
-                                            variant="outlined"
-                                            color="tertiary"
-                                        >
-                                            Assign
-                                        </Button>
-                                    </CardActions>
-                                </Card>
+                                {
+                                    dueTasks.length > 0 ? (
+                                        <>
+                                            {
+                                                dueTasks.map((task) => (
+                                                    <Card
+                                                        key={task.id}
+                                                        sx={{
+                                                            width: { xs: '100%', md: '30%' },
+                                                        }}
+                                                    >
+                                                        <CardContent
+                                                            sx={{
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                alignItems: 'flex-start',
+                                                                gap: '0.5rem',
+                                                            }}
+                                                        >
+                                                            <div className="card-title">
+                                                                {
+                                                                    task.data.title
+                                                                }
+                                                            </div>
+                                                            <div className='card-desc'>
+                                                                {
+                                                                    task.data.description
+                                                                }
+                                                            </div>
+                                                            <div className="date">
+                                                                Due Date: <span>
+                                                                    {
+                                                                        task.data.dueDate
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                        </CardContent>
+                                                        <CardActions
+                                                            sx={{
+                                                                display: 'flex',
+                                                                justifyContent: 'space-between',
+                                                                // width: '90%',
+                                                                gap: '0.5rem',
+                                                            }}
+                                                        >
+                                                            <Box
+                                                                sx={{
+                                                                    display: 'flex',
+                                                                    gap: '0.5rem',
+                                                                }}
+                                                            >
+                                                                <Button
+                                                                    size="small"
+                                                                    variant="contained"
+                                                                    color="tertiary"
+                                                                >
+                                                                    <ModeEditOutlineOutlinedIcon />
+                                                                </Button>
+                                                                <Button
+                                                                    size="small"
+                                                                    variant="contained"
+                                                                    color="tertiary"
+                                                                >
+                                                                    <DeleteOutlineOutlinedIcon />
+                                                                </Button>
+                                                                <Button
+                                                                    size="small"
+                                                                    variant="contained"
+                                                                    color="tertiary"
+                                                                >
+                                                                    <DoneOutlinedIcon />
+                                                                </Button>
+                                                            </Box>
+                                                            <Button
+                                                                size="small"
+                                                                variant="outlined"
+                                                                color="tertiary"
+                                                            >
+                                                                Assign
+                                                            </Button>
+                                                        </CardActions>
+                                                    </Card>
+                                                ))
+                                            }
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Alert
+                                                sx={{
+                                                    width: '100%',
+                                                }}
+                                                severity="warning">
+                                                No tasks here to see! Create one!
+                                            </Alert>
+                                        </>
+                                    )
+                                }
                             </>
                         )
                     }
                     {
                         value === 'completed' && (
                             <>
-                                <Card
-                                    sx={{
-                                        maxWidth: { xs: '100%', md: 345 },
-                                    }}
-                                >
-                                    <CardContent
-                                        sx={{
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            alignItems: 'flex-start',
-                                            gap: '0.5rem',
-                                        }}
-                                    >
-                                        <div className="card-title">
-                                            Lizard
-                                        </div>
-                                        <div className='card-desc'>
-                                            Lizards are a widespread group of squamate reptiles, with over 6,000
-                                            species, ranging across all continents except Antarctica
-                                        </div>
-                                        <div className="date">
-                                            Due Date: <span>
-                                                12/12/2021
-                                            </span>
-                                        </div>
-                                    </CardContent>
-                                    <CardActions
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between',
-                                            width: '90%',
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                gap: '0.5rem',
-                                            }}
-                                        >
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                color="tertiary"
-                                            >
-                                                <ModeEditOutlineOutlinedIcon />
-                                            </Button>
-                                            <Button
-                                                size="small"
-                                                variant="contained"
-                                                color="tertiary"
-                                            >
-                                                <DeleteOutlineOutlinedIcon />
-                                            </Button>
-                                        </Box>
-                                    </CardActions>
-                                </Card>
+                                {
+                                    completedTasks.length > 0 ? (
+                                        <>
+                                            {
+                                                completedTasks.map((task) => (
+                                                    <Card
+                                                        key={task.id}
+                                                        sx={{
+                                                            width: { xs: '100%', md: '30%' },
+                                                        }}
+                                                    >
+                                                        <CardContent
+                                                            sx={{
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                alignItems: 'flex-start',
+                                                                gap: '0.5rem',
+                                                            }}
+                                                        >
+                                                            <div className="card-title">
+                                                                {
+                                                                    task.data.title
+                                                                }
+                                                            </div>
+                                                            <div className='card-desc'>
+                                                                {
+                                                                    task.data.description
+                                                                }
+                                                            </div>
+                                                            <div className="date">
+                                                                Due Date: <span>
+                                                                    {
+                                                                        task.data.dueDate
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                        </CardContent>
+                                                        <CardActions
+                                                            sx={{
+                                                                display: 'flex',
+                                                                justifyContent: 'space-between',
+                                                                // width: '90%',
+                                                                gap: '0.5rem',
+                                                            }}
+                                                        >
+                                                            <Box
+                                                                sx={{
+                                                                    display: 'flex',
+                                                                    gap: '0.5rem',
+                                                                }}
+                                                            >
+                                                                <Button
+                                                                    size="small"
+                                                                    variant="contained"
+                                                                    color="tertiary"
+                                                                >
+                                                                    <ModeEditOutlineOutlinedIcon />
+                                                                </Button>
+                                                                <Button
+                                                                    size="small"
+                                                                    variant="contained"
+                                                                    color="tertiary"
+                                                                >
+                                                                    <DeleteOutlineOutlinedIcon />
+                                                                </Button>
+                                                                {/* <Button
+                                                                size="small"
+                                                                variant="contained"
+                                                                color="tertiary"
+                                                            >
+                                                                <DoneOutlinedIcon />
+                                                            </Button> */}
+                                                            </Box>
+                                                            {/* <Button
+                                                            size="small"
+                                                            variant="outlined"
+                                                            color="tertiary"
+                                                        >
+                                                            Assign
+                                                        </Button> */}
+                                                        </CardActions>
+                                                    </Card>
+                                                ))
+                                            }
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Alert
+                                                sx={{
+                                                    width: '100%',
+                                                }}
+                                                severity="warning">
+                                                No tasks completed yet!
+                                            </Alert>
+                                        </>
+                                    )
+                                }
                             </>
                         )
                     }
