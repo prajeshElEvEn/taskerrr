@@ -33,6 +33,11 @@ const Dashboard = ({ user }) => {
         setValue('completed')
     };
 
+    const handleEditTask = (id) => { }
+    const handleDeleteTask = (id) => { }
+    const handleCompleteTask = (id) => { }
+    const handleAssignTask = (id) => { }
+
     const handleAdd = async () => {
         const taskRef = collection(db, 'tasks')
         await addDoc(taskRef, {
@@ -76,6 +81,26 @@ const Dashboard = ({ user }) => {
 
     return (
         <Container>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    py: '5rem',
+                }}
+            >
+                <div className="sub-title">
+                    Account
+                </div>
+                <div className="sub-header">
+                    Welcome {user.displayName} 👋
+                </div>
+                <div className="description">
+                    You have {dueTasks.length} tasks due and {completedTasks.length} tasks completed
+                </div>
+            </Box>
             <Box
                 sx={{
                     display: 'flex',
@@ -287,6 +312,7 @@ const Dashboard = ({ user }) => {
                                                                     size="small"
                                                                     variant="contained"
                                                                     color="tertiary"
+                                                                    onClick={handleEditTask(task.id)}
                                                                 >
                                                                     <ModeEditOutlineOutlinedIcon />
                                                                 </Button>
@@ -294,6 +320,7 @@ const Dashboard = ({ user }) => {
                                                                     size="small"
                                                                     variant="contained"
                                                                     color="tertiary"
+                                                                    onClick={handleDeleteTask(task.id)}
                                                                 >
                                                                     <DeleteOutlineOutlinedIcon />
                                                                 </Button>
@@ -301,6 +328,7 @@ const Dashboard = ({ user }) => {
                                                                     size="small"
                                                                     variant="contained"
                                                                     color="tertiary"
+                                                                    onClick={handleCompleteTask(task.id)}
                                                                 >
                                                                     <DoneOutlinedIcon />
                                                                 </Button>
@@ -309,6 +337,7 @@ const Dashboard = ({ user }) => {
                                                                 size="small"
                                                                 variant="outlined"
                                                                 color="tertiary"
+                                                                onClick={handleAssignTask(task.id)}
                                                             >
                                                                 Assign
                                                             </Button>
@@ -390,6 +419,7 @@ const Dashboard = ({ user }) => {
                                                                     size="small"
                                                                     variant="contained"
                                                                     color="tertiary"
+                                                                    onClick={handleEditTask(task.id)}
                                                                 >
                                                                     <ModeEditOutlineOutlinedIcon />
                                                                 </Button>
@@ -397,6 +427,7 @@ const Dashboard = ({ user }) => {
                                                                     size="small"
                                                                     variant="contained"
                                                                     color="tertiary"
+                                                                    onClick={handleDeleteTask(task.id)}
                                                                 >
                                                                     <DeleteOutlineOutlinedIcon />
                                                                 </Button>
