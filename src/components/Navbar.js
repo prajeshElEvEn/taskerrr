@@ -1,6 +1,6 @@
 import { Box, Button, Container, Menu, MenuItem } from '@mui/material'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/user/userSlice';
@@ -11,6 +11,7 @@ const Navbar = ({ user }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const dispatch = useDispatch()
+    const nav = useNavigate()
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -23,6 +24,7 @@ const Navbar = ({ user }) => {
     const handleLogout = () => {
         dispatch(logout())
         signOut(auth)
+        nav('/')
     }
 
     return (
