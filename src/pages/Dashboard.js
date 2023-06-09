@@ -46,6 +46,9 @@ const Dashboard = ({ user }) => {
             timestamp: serverTimestamp(),
             updatedAt: serverTimestamp(),
         })
+        setTitle('')
+        setDescription('')
+        setDueDate('')
     }
 
     return (

@@ -22,7 +22,7 @@ const LoginPage = () => {
                     uid: userCredential.user.uid,
                     displayName: userCredential.user.displayName,
                 }))
-                nav('/')
+                nav('/dashboard')
             })
             .catch((error) => {
                 toast.error(error.message)
