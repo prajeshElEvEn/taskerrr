@@ -1,11 +1,13 @@
 import { Alert, Box, Button, Card, CardActions, CardContent, Container, Menu, MenuItem, TextField } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined'
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = ({ user }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -16,7 +18,12 @@ const Dashboard = ({ user }) => {
     const [tasks, setTasks] = useState([])
     const [completedTasks, setCompletedTasks] = useState([])
     const [dueTasks, setDueTasks] = useState([])
-    const open = Boolean(anchorEl);
+    const [btnText, setBtnText] = useState('Add')
+    const [taskId, setTaskId] = useState('')
+    const open = Boolean(anchorEl)
+
+    const nav = useNavigate()
+    const ref = useRef(null)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -33,10 +40,34 @@ const Dashboard = ({ user }) => {
         setValue('completed')
     };
 
-    const handleEditTask = async (id) => { }
+    const handleEditTask = (id) => {
+        ref.current?.scrollIntoView({ behavior: 'smooth' })
+        setTitle(tasks.find((task) => task.id === id).data.title)
+        setDescription(tasks.find((task) => task.id === id).data.description)
+        setDueDate(tasks.find((task) => task.id === id).data.dueDate)
+        setBtnText('Update')
+        setTaskId(id)
+    }
+
+    const handleUpdateTask = async (id) => {
+        const taskRef = doc(db, 'tasks', id)
+        await updateDoc(taskRef, {
+            title: title,
+            description: description,
+            dueDate: dueDate,
+            updatedAt: serverTimestamp()
+        })
+        toast.success("Task updated successfully!")
+        setBtnText('Add')
+        setTitle('')
+        setDescription('')
+        setDueDate('')
+    }
+
     const handleDeleteTask = async (id) => {
         const taskRef = doc(db, 'tasks', id)
         await deleteDoc(taskRef)
+        toast.success('Task deleted successfully!')
     }
     const handleCompletedTask = async (id) => {
         const taskRef = doc(db, 'tasks', id)
@@ -44,6 +75,7 @@ const Dashboard = ({ user }) => {
             completed: true,
             updatedAt: serverTimestamp(),
         })
+        toast.success('Task completed successfully!')
     }
     const handleAssignTask = async (id) => { }
 
@@ -62,6 +94,7 @@ const Dashboard = ({ user }) => {
             timestamp: serverTimestamp(),
             updatedAt: serverTimestamp(),
         })
+        toast.success("Task added successfully")
         setTitle('')
         setDescription('')
         setDueDate('')
@@ -69,7 +102,7 @@ const Dashboard = ({ user }) => {
 
     useEffect(() => {
         const taskRef = collection(db, 'tasks')
-        const taskQuery = query(taskRef, orderBy('timestamp', 'desc'))
+        const taskQuery = query(taskRef, orderBy('dueDate', 'asc'))
         onSnapshot(taskQuery, (snapshot) => {
             setTasks(snapshot.docs.map((doc) => ({
                 id: doc.id,
@@ -107,10 +140,11 @@ const Dashboard = ({ user }) => {
                     Welcome {user?.displayName} 👋
                 </div>
                 <div className="description">
-                    You have {dueTasks.length} tasks due and {completedTasks.length} tasks completed
+                    You have {dueTasks.length} tasks due at the moment
                 </div>
             </Box>
             <Box
+                ref={ref}
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -121,10 +155,30 @@ const Dashboard = ({ user }) => {
                 }}
             >
                 <div className="sub-title">
-                    Create
+                    {
+                        btnText === 'Add' ? (
+                            <>
+                                Create
+                            </>
+                        ) : (
+                            <>
+                                Update
+                            </>
+                        )
+                    }
                 </div>
                 <div className="sub-header">
-                    Create a new task
+                    {
+                        btnText === 'Add' ? (
+                            <>
+                                Create a new task
+                            </>
+                        ) : (
+                            <>
+                                Update the task
+                            </>
+                        )
+                    }
                 </div>
                 <Box
                     sx={{
@@ -178,12 +232,33 @@ const Dashboard = ({ user }) => {
                         variant="outlined"
                         color="tertiary"
                     />
-                    <div
-                        className="btn"
-                        onClick={handleAdd}
-                    >
-                        Add
-                    </div>
+                    {
+                        btnText === 'Add' ? (
+                            <>
+                                <div
+                                    className="btn"
+                                    onClick={handleAdd}
+                                >
+                                    {
+                                        btnText
+                                    }
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div
+                                    className="btn"
+                                    onClick={() => {
+                                        handleUpdateTask(taskId)
+                                    }}
+                                >
+                                    {
+                                        btnText
+                                    }
+                                </div>
+                            </>
+                        )
+                    }
                 </Box>
             </Box>
             <Box
@@ -426,14 +501,14 @@ const Dashboard = ({ user }) => {
                                                                     gap: '0.5rem',
                                                                 }}
                                                             >
-                                                                <Button
+                                                                {/* <Button
                                                                     size="small"
                                                                     variant="contained"
                                                                     color="tertiary"
                                                                     onClick={() => { handleEditTask(task.id) }}
                                                                 >
                                                                     <ModeEditOutlineOutlinedIcon />
-                                                                </Button>
+                                                                </Button> */}
                                                                 <Button
                                                                     size="small"
                                                                     variant="contained"
