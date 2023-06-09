@@ -2,7 +2,7 @@ import { Box, Container } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
     return (
         <Container sx={{
             display: 'flex',
@@ -31,8 +31,19 @@ const Navbar = () => {
                     gap: '2rem',
                 }}
             >
-                <Link to='/login' className="nav-btn-login">Login</Link>
-                <Link to='/signup' className="nav-btn">Sign Up</Link>
+                {
+                    user ? (
+                        <>
+                            <Link to='/login' className="nav-btn-login">Dasboard</Link>
+                            <Link to='/signup' className="nav-btn">Logout</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to='/login' className="nav-btn-login">Login</Link>
+                            <Link to='/signup' className="nav-btn">Sign Up</Link>
+                        </>
+                    )
+                }
             </Box>
         </Container>
     )

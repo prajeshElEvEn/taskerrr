@@ -1,13 +1,45 @@
 import { Box, Container, TextField } from '@mui/material'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
+import { auth } from '../firebase/config'
+import { useDispatch } from 'react-redux'
+import { login } from '../features/user/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 const SignupPage = () => {
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const handleSignup = () => {
+    const dispatch = useDispatch()
+    const nav = useNavigate()
 
+    const handleSignup = () => {
+        if (password !== confirmPassword) {
+            toast.error('Passwords do not match')
+        } else {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user
+                    updateProfile(user, {
+                        displayName: name,
+                    })
+                        .then(() => {
+                            dispatch(login({
+                                email: userCredential.user.email,
+                                uid: userCredential.user.uid,
+                                displayName: name,
+                            }))
+
+                        })
+                    nav('/')
+                })
+                .catch((error) => {
+                    toast.error(error.message)
+                })
+        }
     }
 
     return (
@@ -43,6 +75,19 @@ const SignupPage = () => {
                     gap: '1rem',
                 }}
             >
+                <TextField
+                    sx={{
+                        // m: '1rem',
+                        width: '100%',
+                    }}
+                    type='text'
+                    // id="outlined-basic"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    label="Full Name"
+                    variant="outlined"
+                    color="tertiary"
+                />
                 <TextField
                     sx={{
                         // m: '1rem',

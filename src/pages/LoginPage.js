@@ -1,12 +1,32 @@
 import { Box, Container, TextField } from '@mui/material'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
+import { auth } from '../firebase/config'
+import { useDispatch } from 'react-redux'
+import { login } from '../features/user/userSlice'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleLogin = () => {
+    const dispatch = useDispatch()
+    const nav = useNavigate()
 
+    const handleLogin = () => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                dispatch(login({
+                    email: userCredential.user.email,
+                    uid: userCredential.user.uid,
+                    displayName: userCredential.user.displayName,
+                }))
+                nav('/')
+            })
+            .catch((error) => {
+                toast.error(error.message)
+            })
     }
 
     return (
