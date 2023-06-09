@@ -1,7 +1,23 @@
-import { Box, Container, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Box, Button, Container, Menu, MenuItem, TextField } from '@mui/material'
+import React, { useState } from 'react'
+import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 
 const Dashboard = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const handleDue = () => {
+        setAnchorEl(null);
+    };
+    const handleCompleted = () => {
+        setAnchorEl(null);
+    };
     return (
         <Container>
             <Box
@@ -96,9 +112,57 @@ const Dashboard = () => {
                 <div className="sub-header">
                     Your tasks
                 </div>
-                <div className="description">
-                    View your tasks on the bases of due date or status
-                </div>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                    }}
+                >
+                    <div className="description">
+                        View your tasks on the bases of due date or status
+                    </div>
+                    <div>
+                        <Button
+                            id="demo-positioned-button"
+                            aria-controls={open ? 'demo-positioned-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}
+                            variant="contained"
+                            color="tertiary"
+                        >
+                            <FilterListOutlinedIcon />
+                        </Button>
+                        <Menu
+                            id="demo-positioned-menu"
+                            aria-labelledby="demo-positioned-button"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'left',
+                            }}
+                        >
+                            <MenuItem
+                                onClick={handleDue}
+                            >
+                                Due Tasks
+                            </MenuItem>
+                            <MenuItem
+                                onClick={handleCompleted}
+                            >
+                                Completed Tasks
+                            </MenuItem>
+                        </Menu>
+                    </div>
+                </Box>
             </Box>
         </Container>
     )

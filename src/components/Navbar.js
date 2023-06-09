@@ -32,6 +32,9 @@ const Navbar = ({ user }) => {
             alignItems: 'center',
             py: '1rem',
             borderBottom: '1px solid #221935',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            flexDirection: { xs: 'column', md: 'row' },
         }}>
             <Box>
                 {/* <img src="" alt="" /> */}
@@ -49,22 +52,31 @@ const Navbar = ({ user }) => {
                 sx={{
                     display: 'flex',
                     // justifyContent: 'space-between',
+                    // flexDirection: { xs: 'column', md: 'row' },
                     alignItems: 'center',
-                    gap: '2rem',
+                    gap: { xs: '1rem', md: '2rem' },
+                    width: { xs: '100%', md: 'auto' },
+                    justifyContent: { xs: 'space-between', md: 'flex-end' },
                 }}
             >
                 {
                     user ? (
-                        <><Button
-                            id="basic-button"
-                            aria-controls={open ? 'basic-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                            onClick={handleClick}
-                            color="tertiary"
-                        >
-                            <NotificationsNoneOutlinedIcon />
-                        </Button>
+                        <>
+                            <Link to='/dashboard' className="nav-btn-login">
+                                Dasboard
+                            </Link>
+
+                            <Button
+                                id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleClick}
+                                color="tertiary"
+                                variant="contained"
+                            >
+                                <NotificationsNoneOutlinedIcon />
+                            </Button>
                             <Menu
                                 id="basic-menu"
                                 anchorEl={anchorEl}
@@ -78,7 +90,6 @@ const Navbar = ({ user }) => {
                                     Notification 1
                                 </MenuItem>
                             </Menu>
-                            <Link to='/dashboard' className="nav-btn-login">Dasboard</Link>
                             <div
                                 className="nav-btn"
                                 onClick={handleLogout}
