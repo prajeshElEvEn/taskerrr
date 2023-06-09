@@ -89,7 +89,7 @@ const Navbar = ({ user }) => {
                                 }}
                             >
                                 <MenuItem onClick={handleClose}>
-                                    Notification 1
+                                    No Notifications
                                 </MenuItem>
                             </Menu>
                             <div

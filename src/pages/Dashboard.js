@@ -7,7 +7,6 @@ import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 
 const Dashboard = ({ user }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -22,7 +21,6 @@ const Dashboard = ({ user }) => {
     const [taskId, setTaskId] = useState('')
     const open = Boolean(anchorEl)
 
-    const nav = useNavigate()
     const ref = useRef(null)
 
     const handleClick = (event) => {
@@ -77,7 +75,9 @@ const Dashboard = ({ user }) => {
         })
         toast.success('Task completed successfully!')
     }
-    const handleAssignTask = async (id) => { }
+    const handleAssignTask = async (id) => {
+        toast.warning('This feature is not available yet!')
+    }
 
     const handleAdd = async () => {
         const taskRef = collection(db, 'tasks')
@@ -439,7 +439,7 @@ const Dashboard = ({ user }) => {
                                                     width: '100%',
                                                 }}
                                                 severity="warning">
-                                                No tasks here to see! Create one!
+                                                No tasks due! Create one!
                                             </Alert>
                                         </>
                                     )
