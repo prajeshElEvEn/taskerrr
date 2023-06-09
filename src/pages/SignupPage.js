@@ -41,7 +41,7 @@ const SignupPage = () => {
                             }))
 
                         })
-                    nav('/dashboard')
+                    nav('/taskerrr/dashboard')
                 })
                 .catch((error) => {
                     toast.error(error.message)

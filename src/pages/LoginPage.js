@@ -5,7 +5,7 @@ import { auth } from '../firebase/config'
 import { useDispatch } from 'react-redux'
 import { login } from '../features/user/userSlice'
 import { toast } from 'react-toastify'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
     const [email, setEmail] = useState('')
@@ -22,7 +22,7 @@ const LoginPage = () => {
                     uid: userCredential.user.uid,
                     displayName: userCredential.user.displayName,
                 }))
-                nav('/dashboard')
+                nav('/taskerrr/dashboard')
             })
             .catch((error) => {
                 toast.error(error.message)

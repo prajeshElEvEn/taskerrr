@@ -24,7 +24,7 @@ const Navbar = ({ user }) => {
     const handleLogout = () => {
         dispatch(logout())
         signOut(auth)
-        nav('/')
+        nav('/taskerrr')
     }
 
     return (
@@ -40,7 +40,7 @@ const Navbar = ({ user }) => {
         }}>
             <Box>
                 {/* <img src="" alt="" /> */}
-                <Link to='/' className="brand-name">
+                <Link to='/taskerrr' className="brand-name">
                     📑 Taskerrr
                 </Link>
             </Box>
@@ -64,7 +64,7 @@ const Navbar = ({ user }) => {
                 {
                     user ? (
                         <>
-                            <Link to='/dashboard' className="nav-btn-login">
+                            <Link to='/taskerrr/dashboard' className="nav-btn-login">
                                 Dasboard
                             </Link>
 
@@ -101,8 +101,8 @@ const Navbar = ({ user }) => {
                         </>
                     ) : (
                         <>
-                            <Link to='/login' className="nav-btn-login">Login</Link>
-                            <Link to='/signup' className="nav-btn">Sign Up</Link>
+                            <Link to='/taskerrr/login' className="nav-btn-login">Login</Link>
+                            <Link to='/taskerrr/signup' className="nav-btn">Sign Up</Link>
                         </>
                     )
                 }

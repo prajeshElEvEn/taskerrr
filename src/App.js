@@ -36,10 +36,10 @@ function App() {
     <>
       <Navbar user={user} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<Dashboard user={user} />} />
+        <Route path="/taskerrr/" element={<HomePage />} />
+        <Route path="/taskerrr/signup" element={<SignupPage />} />
+        <Route path="/taskerrr/login" element={<LoginPage />} />
+        <Route path="/taskerrr/dashboard" element={<Dashboard user={user} />} />
       </Routes>
       <ToastContainer />
     </>

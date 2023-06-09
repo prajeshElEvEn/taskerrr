@@ -23,7 +23,7 @@ const Footer = () => {
                 }}
             >
                 <Box>
-                    <Link to='/' className="brand-name">
+                    <Link to='/taskerrr' className="brand-name">
                         📑 Taskerrr
                     </Link>
                 </Box>
