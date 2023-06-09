@@ -95,7 +95,7 @@ const LoginPage = () => {
                     Login
                 </div>
             </Box>
-            <Box
+            {/* <Box
                 sx={{
                     display: 'flex',
                     gap: '0.5rem',
@@ -105,7 +105,7 @@ const LoginPage = () => {
                 <Link to='/forgot'>
                     Reset Password
                 </Link>
-            </Box>
+            </Box> */}
         </Container>
     )
 }
