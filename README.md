@@ -11,10 +11,12 @@ Taskerrr is a task management app that allows users to create, update, and delet
 - [Material UI](https://material-ui.com/)
 - [Node.js](https://nodejs.org/en/)
 - [Firebase](https://firebase.google.com/)
+- [Redux](https://react-redux.js.org/)
+- [Lottie](https://lottiefiles.com/)
 
 ## Installation
 
-1. Clone the repo
+1. Fork and clone the repo
 
    ```sh
    git clone <repo_url>
