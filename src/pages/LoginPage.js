@@ -5,7 +5,7 @@ import { auth } from '../firebase/config'
 import { useDispatch } from 'react-redux'
 import { login } from '../features/user/userSlice'
 import { toast } from 'react-toastify'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
     const [email, setEmail] = useState('')
@@ -94,6 +94,17 @@ const LoginPage = () => {
                 >
                     Login
                 </div>
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '0.5rem',
+                }}
+            >
+                <span>Forgot Password?</span>
+                <Link to='/forgot'>
+                    Reset Password
+                </Link>
             </Box>
         </Container>
     )
