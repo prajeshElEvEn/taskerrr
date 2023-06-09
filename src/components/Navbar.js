@@ -1,8 +1,17 @@
-import { Box, Container } from '@mui/material'
-import React from 'react'
+import { Box, Button, Container, Menu, MenuItem } from '@mui/material'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 
 const Navbar = ({ user }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     return (
         <Container sx={{
             display: 'flex',
@@ -33,7 +42,29 @@ const Navbar = ({ user }) => {
             >
                 {
                     user ? (
-                        <>
+                        <><Button
+                            id="basic-button"
+                            aria-controls={open ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleClick}
+                            color="tertiary"
+                        >
+                            <NotificationsNoneOutlinedIcon />
+                        </Button>
+                            <Menu
+                                id="basic-menu"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
+                                }}
+                            >
+                                <MenuItem onClick={handleClose}>
+                                    Notification 1
+                                </MenuItem>
+                            </Menu>
                             <Link to='/login' className="nav-btn-login">Dasboard</Link>
                             <Link to='/signup' className="nav-btn">Logout</Link>
                         </>
