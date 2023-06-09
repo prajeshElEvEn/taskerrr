@@ -1,12 +1,19 @@
-import { Box, Button, Card, CardActions, CardContent, Container, Menu, MenuItem, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CardActions, CardContent, Container, Menu, MenuItem, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined'
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
-const Dashboard = () => {
+const Dashboard = ({ user }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [value, setValue] = useState('due')
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [dueDate, setDueDate] = useState('')
+    const [tasks, setTasks] = useState([])
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
@@ -23,6 +30,24 @@ const Dashboard = () => {
         setAnchorEl(null)
         setValue('completed')
     };
+
+    const handleAdd = async () => {
+        const taskRef = collection(db, 'tasks')
+        await addDoc(taskRef, {
+            title: title,
+            description: description,
+            dueDate: dueDate,
+            completed: false,
+            author: {
+                name: user.displayName,
+                email: user.email,
+            },
+            assignedTo: [],
+            timestamp: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+        })
+    }
+
     return (
         <Container>
             <Box
@@ -61,8 +86,8 @@ const Dashboard = () => {
                         }}
                         type='text'
                         // id="outlined-basic"
-                        // value={name}
-                        // onChange={(e) => setName(e.target.value)}
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         label="Title"
                         variant="outlined"
                         color="tertiary"
@@ -74,8 +99,8 @@ const Dashboard = () => {
                         }}
                         type='text'
                         // id="outlined-basic"
-                        // value={name}
-                        // onChange={(e) => setName(e.target.value)}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         label="Description"
                         variant="outlined"
                         color="tertiary"
@@ -87,15 +112,15 @@ const Dashboard = () => {
                         }}
                         type='date'
                         // id="outlined-basic"
-                        // value={name}
-                        // onChange={(e) => setName(e.target.value)}
+                        value={dueDate}
+                        onChange={(e) => setDueDate(e.target.value)}
                         // label="Description"
                         variant="outlined"
                         color="tertiary"
                     />
                     <div
                         className="btn"
-                    // onClick={handleSignup}
+                        onClick={handleAdd}
                     >
                         Add
                     </div>
@@ -234,6 +259,13 @@ const Dashboard = () => {
                                             >
                                                 <DeleteOutlineOutlinedIcon />
                                             </Button>
+                                            <Button
+                                                size="small"
+                                                variant="contained"
+                                                color="tertiary"
+                                            >
+                                                <DoneOutlinedIcon />
+                                            </Button>
                                         </Box>
                                         <Button
                                             size="small"
@@ -304,13 +336,6 @@ const Dashboard = () => {
                                                 <DeleteOutlineOutlinedIcon />
                                             </Button>
                                         </Box>
-                                        <Button
-                                            size="small"
-                                            variant="outlined"
-                                            color="tertiary"
-                                        >
-                                            Assign
-                                        </Button>
                                     </CardActions>
                                 </Card>
                             </>

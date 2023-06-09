@@ -2,10 +2,11 @@ import { Box, Container, TextField } from '@mui/material'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import { auth } from '../firebase/config'
+import { auth, db } from '../firebase/config'
 import { useDispatch } from 'react-redux'
 import { login } from '../features/user/userSlice'
 import { useNavigate } from 'react-router-dom'
+import { addDoc, collection } from 'firebase/firestore'
 
 const SignupPage = () => {
     const [name, setName] = useState('')
@@ -27,6 +28,12 @@ const SignupPage = () => {
                         displayName: name,
                     })
                         .then(() => {
+                            addDoc(collection(db, 'users'), {
+                                uid: user.uid,
+                                name: name,
+                                email: email,
+                                tasksAssigned: [],
+                            })
                             dispatch(login({
                                 email: userCredential.user.email,
                                 uid: userCredential.user.uid,
