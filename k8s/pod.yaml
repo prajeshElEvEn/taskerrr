@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: taskerrr-app
+spec:
+  containers:
+  - name: taskerrr-app
+    image: kulshreshthaak12/taskerrr:0.1
+    ports:
+    - containerPort: 3000      

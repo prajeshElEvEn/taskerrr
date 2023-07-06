@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskerrr-deployment
+  labels:
+    app: taskerrr
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taskerrr
+  template:
+    metadata:
+      labels:
+        app: taskerrr
+    spec:
+      containers:
+      - name: taskerrr
+        image: kulshreshthaak12/taskerrr:0.1
+        ports:
+        - containerPort: 3000
+
