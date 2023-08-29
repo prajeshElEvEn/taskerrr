@@ -1,4 +1,4 @@
-import { Box, Container, TextField } from '@mui/material'
+import { Box, Container, TextField, Typography } from '@mui/material'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
 import { auth } from '../firebase/config'
@@ -39,52 +39,44 @@ const LoginPage = () => {
                 py: '5rem',
                 gap: '1rem',
             }}
+            component="main" maxWidth="xs"
         >
             <div className="sub-title">
                 Login
             </div>
-            <div className="sub-header">
+            <Typography component="h1" variant="h5"className="sub-header">
                 Provide your credentials
-            </div>
+            </Typography>
             <Box
-                sx={{
-                    bgcolor: '#DFDFE2',
-                    // bgcolor: '#7C5EB7',
-                    p: '1rem',
-                    // py: '2rem',
-                    // px: { xs: '0', md: '2rem' },
-                    borderRadius: '10px',
-                    width: { xs: '100%', md: 'auto' },
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '1rem',
-                }}
+                
+                component="form"
+                sx={{ mt: 1, bgcolor: 'white', borderRadius: '5px', padding: '10px'}}
             >
                 <TextField
-                    sx={{
-                        // m: '1rem',
-                        width: '100%',
-                    }}
+                    required
+                    fullWidth
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
                     type='email'
-                    // id="outlined-basic"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    label="Email Id"
                     variant="outlined"
                     color="tertiary"
                 />
                 <TextField
-                    sx={{
-                        // m: '1rem',
-                        width: '100%',
-                    }}
-                    type='password'
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
                     // id="outlined-basic"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    label="Password"
                     variant="outlined"
                     color="tertiary"
                 />
